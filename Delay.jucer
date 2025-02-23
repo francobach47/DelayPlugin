@@ -6,6 +6,8 @@
               companyEmail="francobach47@gmail.com" cppLanguageStandard="20">
   <MAINGROUP id="yjEG3U" name="Delay">
     <GROUP id="{47D777C9-3817-EDDE-4629-CC2581820093}" name="Source">
+      <FILE id="VC1GKn" name="Parameters.cpp" compile="1" resource="0" file="Source/Parameters.cpp"/>
+      <FILE id="Hd2sIX" name="Parameters.h" compile="0" resource="0" file="Source/Parameters.h"/>
       <FILE id="W6HuZR" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="TvWQYW" name="PluginProcessor.h" compile="0" resource="0"
