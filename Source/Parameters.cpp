@@ -10,12 +10,28 @@ static void castParameter(juce::AudioProcessorValueTreeState& apvts,
 
 Parameters::Parameters(juce::AudioProcessorValueTreeState& apvts)
 {
-	//auto* param = apvts.getParameter(gainPramID.getParamID());
-	//gainParam = dynamic_cast<juce::AudioParameterFloat*>(param);
 	castParameter(apvts, gainParamID, gainParam);
+}
+
+void Parameters::prepareToPlay(double sampleRate) noexcept
+{
+	double duration = 0.02;
+	gainSmoother.reset(sampleRate, duration);
+}
+
+void Parameters::reset() noexcept
+{
+	gain = 0.0f;
+
+	gainSmoother.setCurrentAndTargetValue(juce::Decibels::decibelsToGain(gainParam->get()));
 }
 
 void Parameters::update() noexcept
 {
-	gain = juce::Decibels::decibelsToGain(gainParam->get());
+	gainSmoother.setTargetValue(juce::Decibels::decibelsToGain(gainParam->get()));
+}
+
+void Parameters::smoothen() noexcept
+{
+	gain = gainSmoother.getNextValue();
 }
