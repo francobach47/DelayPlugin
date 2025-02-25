@@ -5,8 +5,8 @@
 DelayAudioProcessor::DelayAudioProcessor() : AudioProcessor (BusesProperties()
                        .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
-                       ),
-                       params(apvts)
+    ),
+    params(apvts)
 {
 }
 
@@ -22,29 +22,29 @@ const juce::String DelayAudioProcessor::getName() const
 
 bool DelayAudioProcessor::acceptsMidi() const
 {
-   #if JucePlugin_WantsMidiInput
+#if JucePlugin_WantsMidiInput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 bool DelayAudioProcessor::producesMidi() const
 {
-   #if JucePlugin_ProducesMidiOutput
+#if JucePlugin_ProducesMidiOutput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 bool DelayAudioProcessor::isMidiEffect() const
 {
-   #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 double DelayAudioProcessor::getTailLengthSeconds() const
@@ -55,7 +55,7 @@ double DelayAudioProcessor::getTailLengthSeconds() const
 int DelayAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
+    // so this should be at least 1, even if you're not really implementing programs.
 }
 
 int DelayAudioProcessor::getCurrentProgram()
@@ -86,7 +86,7 @@ void DelayAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     spec.sampleRate = sampleRate;
     spec.maximumBlockSize = juce::uint32(samplesPerBlock);
     spec.numChannels = 2;
- 
+
     delayLine.prepare(spec);
     double numSamples = Parameters::maxDelayTime / 1000.0 * sampleRate;
     int maxDelayInSamples = int(std::ceil(numSamples));
@@ -126,7 +126,7 @@ void DelayAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, [[mayb
 
     for (int sample = 0; sample < buffer.getNumSamples(); sample++) {
         params.smoothen();
-        
+
         float dryL = channelDataL[sample];
         float dryR = channelDataR[sample];
 

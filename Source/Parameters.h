@@ -26,6 +26,6 @@ public:
 private:
 	juce::AudioParameterFloat* gainParam;
 	juce::LinearSmoothedValue<float> gainSmoother;
-	
+
 	juce::AudioParameterFloat* delayTimeParam;
 };
