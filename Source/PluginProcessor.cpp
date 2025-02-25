@@ -81,6 +81,18 @@ void DelayAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     params.prepareToPlay(sampleRate);
     params.reset();
+
+    juce::dsp::ProcessSpec spec;
+    spec.sampleRate = sampleRate;
+    spec.maximumBlockSize = juce::uint32(samplesPerBlock);
+    spec.numChannels = 2;
+ 
+    delayLine.prepare(spec);
+    double numSamples = Parameters::maxDelayTime / 1000.0 * sampleRate;
+    int maxDelayInSamples = int(std::ceil(numSamples));
+    delayLine.setMaximumDelayInSamples(maxDelayInSamples);
+    delayLine.reset();
+    // DBG(maxDelayInSamples);
 }
 
 void DelayAudioProcessor::releaseResources()
@@ -105,15 +117,27 @@ void DelayAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, [[mayb
 
     params.update();
 
+    float sampleRate = float(getSampleRate());
+    float delayInSamples = params.delayTime / 1000.0f * sampleRate;
+    delayLine.setDelay(delayInSamples); // FIXED. 1s = 48000 samples.
+
     float* channelDataL = buffer.getWritePointer(0);
     float* channelDataR = buffer.getWritePointer(1);
 
-
     for (int sample = 0; sample < buffer.getNumSamples(); sample++) {
         params.smoothen();
+        
+        float dryL = channelDataL[sample];
+        float dryR = channelDataR[sample];
 
-        channelDataL[sample] *= params.gain;
-        channelDataR[sample] *= params.gain;
+        delayLine.pushSample(0, dryL);
+        delayLine.pushSample(1, dryR);
+
+        float wetL = delayLine.popSample(0);
+        float wetR = delayLine.popSample(1);
+
+        channelDataL[sample] = (dryL + wetL) * params.gain;
+        channelDataR[sample] = (dryR + wetR) * params.gain;
     }
 }
 
@@ -148,17 +172,4 @@ void DelayAudioProcessor::setStateInformation (const void* data, int sizeInBytes
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new DelayAudioProcessor();
-}
-
-juce::AudioProcessorValueTreeState::ParameterLayout Parameters::createParameterLayout()
-{
-    juce::AudioProcessorValueTreeState::ParameterLayout layout;
-
-    layout.add(std::make_unique<juce::AudioParameterFloat>(
-        gainParamID,
-        "Output Gain",
-        juce::NormalisableRange<float> {-12.0f, 12.0f, },
-        0.0f));
-
-    return layout;
 }

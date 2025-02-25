@@ -3,6 +3,7 @@
 #include <JuceHeader.h>
 
 const juce::ParameterID gainParamID{ "gain", 1 };
+const juce::ParameterID delayTimeParamID{ "delayTime", 1 };
 
 class Parameters
 {
@@ -18,8 +19,13 @@ public:
 
 	float gain = 0.0f;
 
+	float delayTime = 0.0f;
+	static constexpr float minDelayTime = 5.0f;
+	static constexpr float maxDelayTime = 5000.0f;
+
 private:
 	juce::AudioParameterFloat* gainParam;
-
 	juce::LinearSmoothedValue<float> gainSmoother;
+	
+	juce::AudioParameterFloat* delayTimeParam;
 };
