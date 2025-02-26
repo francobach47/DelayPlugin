@@ -5,6 +5,8 @@ DelayAudioProcessorEditor::DelayAudioProcessorEditor (DelayAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
     addAndMakeVisible(gainKnob);
+    addAndMakeVisible(mixKnob);
+    addAndMakeVisible(delayTimeKnob);
 
     setSize (500, 330);
 }
@@ -21,5 +23,7 @@ void DelayAudioProcessorEditor::paint (juce::Graphics& g)
 
 void DelayAudioProcessorEditor::resized()
 {
-    gainKnob.setTopLeftPosition(215, 120);
+    delayTimeKnob.setTopLeftPosition(20, 10);
+    mixKnob.setTopLeftPosition(delayTimeKnob.getRight() + 20, 10);
+    gainKnob.setTopLeftPosition(mixKnob.getRight() + 20, 10);
 }
