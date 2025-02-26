@@ -28,4 +28,6 @@ private:
 	juce::LinearSmoothedValue<float> gainSmoother;
 
 	juce::AudioParameterFloat* delayTimeParam;
+	float targetDelayTime = 0.0f;
+	float coeff = 0.0f; // one-pole smoothing
 };

@@ -11,22 +11,22 @@ static void castParameter(juce::AudioProcessorValueTreeState& apvts,
 static juce::String stringFromMilliseconds(float value, int)
 {
 	if (value < 10.0f) {
-		return juce::String(value, 2) + "ms";
+		return juce::String(value, 2) + " ms";
 	}
 	else if (value < 100.0f) {
-		return juce::String(value, 1) + "ms";
+		return juce::String(value, 1) + " ms";
 	}
 	else if (value < 1000.0f) {
-		return juce::String(int(value)) + "ms";
+		return juce::String(int(value)) + " ms";
 	}
 	else {
-		return juce::String(value * 0.001f, 2) + "s";
+		return juce::String(value * 0.001f, 2) + " s";
 	}
 }
 
 static juce::String stringFromDecibels(float value, int)
 {
-	return juce::String(value, 1) + "dB";
+	return juce::String(value, 1) + " dB";
 }
 
 Parameters::Parameters(juce::AudioProcessorValueTreeState& apvts)
@@ -62,6 +62,8 @@ void Parameters::prepareToPlay(double sampleRate) noexcept
 {
 	double duration = 0.02;
 	gainSmoother.reset(sampleRate, duration);
+
+	coeff = 1.0f - std::exp(-1.0f / (0.2f * float(sampleRate)));
 }
 
 void Parameters::reset() noexcept
@@ -76,10 +78,15 @@ void Parameters::update() noexcept
 {
 	gainSmoother.setTargetValue(juce::Decibels::decibelsToGain(gainParam->get()));
 
-	delayTime = delayTimeParam->get();
+	targetDelayTime = delayTimeParam->get();
+	if (delayTime == 0.0f) {
+		delayTime = targetDelayTime;
+	}
 }
 
 void Parameters::smoothen() noexcept
 {
 	gain = gainSmoother.getNextValue();
+
+	delayTime += (targetDelayTime - delayTime) * coeff;
 }
