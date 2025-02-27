@@ -23,6 +23,17 @@ namespace Colors
 	}
 }
 
+class Fonts
+{
+public:
+	Fonts() = delete;
+
+	static juce::Font getFont(float height = 16.0f);
+
+private:
+	static const juce::Typeface::Ptr typeface;
+};
+
 class RotaryKnobLookAndFeel : public juce::LookAndFeel_V4
 {
 public:
@@ -38,6 +49,8 @@ public:
 		juce::Graphics& g, int x, int y, int width, int height,
 		float sliderPos, float rotaryStartAngle,
 		float rotaryEndAngle, juce::Slider& slider) override;
+
+	juce::Font getLabelFont(juce::Label&) override;
 
 private:
 	juce::DropShadow dropShadow{ Colors::Knob::dropShadow, 6, { 0, 3} };

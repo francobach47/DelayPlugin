@@ -4,6 +4,9 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="ColoDSP"
               companyWebsite="https://francobach47.github.io/">
   <MAINGROUP id="pxPt0g" name="Delay">
+    <GROUP id="{19B79A68-1433-7443-E132-5111B1FA4000}" name="Assets">
+      <FILE id="abQU8E" name="Lato-Medium.ttf" compile="0" resource="1" file="Assets/Lato-Medium.ttf"/>
+    </GROUP>
     <GROUP id="{AB599858-5C1E-9EB2-1397-A952F4F38126}" name="Source">
       <FILE id="kVqQj0" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="B0rwpb" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
