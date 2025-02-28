@@ -10,6 +10,7 @@
       <FILE id="Udqr4K" name="Noise.png" compile="0" resource="1" file="Assets/Noise.png"/>
     </GROUP>
     <GROUP id="{AB599858-5C1E-9EB2-1397-A952F4F38126}" name="Source">
+      <FILE id="aMSrFh" name="DSP.h" compile="0" resource="0" file="Source/DSP.h"/>
       <FILE id="kVqQj0" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
       <FILE id="B0rwpb" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
       <FILE id="eSq53n" name="Parameters.cpp" compile="1" resource="0" file="Source/Parameters.cpp"/>
