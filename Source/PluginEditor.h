@@ -21,10 +21,10 @@ private:
 
     juce::GroupComponent delayGroup, feedbackGroup, outputGroup;
 
-    RotaryKnob gainKnob{ "Gain" , audioProcessor.apvts, gainParamID , true };
+    RotaryKnob gainKnob{ "Gain" , audioProcessor.apvts, gainParamID, true };
     RotaryKnob mixKnob{ "Mix", audioProcessor.apvts, mixParamID};
     RotaryKnob delayTimeKnob{ "Time", audioProcessor.apvts, delayTimeParamID};
-    RotaryKnob feedbackKnob{ "Feedback", audioProcessor.apvts, feedbackParamID };
+    RotaryKnob feedbackKnob{ "Feedback", audioProcessor.apvts, feedbackParamID, true };
 
     MainLookAndFeel mainLF;
 
