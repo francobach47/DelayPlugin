@@ -116,6 +116,9 @@ void Parameters::reset() noexcept
 
 	feedback = 0.0f;
 	feedbackSmoother.setCurrentAndTargetValue(feedbackParam->get() * 0.01f);
+
+	panL = 0.0f;
+	panR = 1.0f;
 }
 
 void Parameters::update() noexcept

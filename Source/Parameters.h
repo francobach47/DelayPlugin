@@ -29,6 +29,9 @@ public:
 
 	float feedback = 0.0f;
 
+	float panL = 0.0f;
+	float panR = 1.0f;
+
 private:
 	juce::AudioParameterFloat* gainParam;
 	juce::LinearSmoothedValue<float> gainSmoother;
