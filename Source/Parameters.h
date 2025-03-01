@@ -7,6 +7,8 @@ const juce::ParameterID delayTimeParamID{ "delayTime", 1 };
 const juce::ParameterID mixParamID{ "mix", 1 };
 const juce::ParameterID feedbackParamID{ "feedback", 1 };
 const juce::ParameterID stereoParamID{ "stereo", 1 };
+const juce::ParameterID lowCutParamID{ "lowCut", 1 };
+const juce::ParameterID highCutParamID{ "highCut", 1 };
 
 class Parameters
 {
@@ -33,6 +35,9 @@ public:
 	float panL = 0.0f;
 	float panR = 1.0f;
 
+	float lowCut = 20.0f;
+	float highCut = 20000.0f;
+
 private:
 	juce::AudioParameterFloat* gainParam;
 	juce::LinearSmoothedValue<float> gainSmoother;
@@ -49,4 +54,10 @@ private:
 
 	juce::AudioParameterFloat* stereoParam;
 	juce::LinearSmoothedValue<float> stereoSmoother;
+
+	juce::AudioParameterFloat* lowCutParam;
+	juce::LinearSmoothedValue<float> lowCutSmoother;
+
+	juce::AudioParameterFloat* highCutParam;
+	juce::LinearSmoothedValue<float> highCutSmoother;
 };
