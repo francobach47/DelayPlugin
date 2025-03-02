@@ -6,7 +6,8 @@
 #include "RotaryKnob.h"
 #include "LookAndFeel.h"
 
-class DelayAudioProcessorEditor  : public juce::AudioProcessorEditor
+class DelayAudioProcessorEditor  : public juce::AudioProcessorEditor,
+                                   private juce::AudioProcessorParameter::Listener
 {
 public:
     DelayAudioProcessorEditor (DelayAudioProcessor&);
@@ -35,7 +36,12 @@ private:
         audioProcessor.apvts, tempoSyncParamID.getParamID(), tempoSyncButton
     };
 
+    void parameterValueChanged(int, float) override;
+    void parameterGestureChanged(int, bool) override { }
+
     MainLookAndFeel mainLF;
+
+    void updateDelayKnobs(bool tempoSyncActive);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DelayAudioProcessorEditor)
 };
