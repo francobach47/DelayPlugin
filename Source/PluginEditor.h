@@ -28,6 +28,12 @@ private:
     RotaryKnob stereoKnob{ "Stereo", audioProcessor.apvts, stereoParamID, true };
     RotaryKnob lowCutKnob{ "Low Cut", audioProcessor.apvts, lowCutParamID };
     RotaryKnob highCutKnob{ "High Cut", audioProcessor.apvts, highCutParamID };
+    RotaryKnob delayNoteKnob{ "Note", audioProcessor.apvts, delayNoteParamID };
+
+    juce::TextButton tempoSyncButton;
+    juce::AudioProcessorValueTreeState::ButtonAttachment tempoSyncAttachment {
+        audioProcessor.apvts, tempoSyncParamID.getParamID(), tempoSyncButton
+    };
 
     MainLookAndFeel mainLF;
 
