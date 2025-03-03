@@ -1,6 +1,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "DelayLine.h"
 #include "Parameters.h"
 #include "Tempo.h"
 
@@ -56,8 +57,9 @@ public:
 private:
     Tempo tempo;
 
-    juce::dsp::DelayLine<float, juce::dsp::DelayLineInterpolationTypes::Linear> delayLine;
-
+    //juce::dsp::DelayLine<float, juce::dsp::DelayLineInterpolationTypes::Linear> delayLine;
+    DelayLine delayLineL, delayLineR;
+        
     float feedbackL = 0.0f;
     float feedbackR = 0.0f;
 
