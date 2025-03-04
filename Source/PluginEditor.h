@@ -5,6 +5,7 @@
 #include "Parameters.h"
 #include "RotaryKnob.h"
 #include "LookAndFeel.h"
+#include "LevelMeter.h"
 
 class DelayAudioProcessorEditor  : public juce::AudioProcessorEditor,
                                    private juce::AudioProcessorParameter::Listener
@@ -42,6 +43,8 @@ private:
     MainLookAndFeel mainLF;
 
     void updateDelayKnobs(bool tempoSyncActive);
+
+    LevelMeter meter;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DelayAudioProcessorEditor)
 };
