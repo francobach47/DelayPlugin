@@ -248,6 +248,11 @@ void DelayAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, [[mayb
         float outL = (mixL) * params.gain;
         float outR = (mixR) * params.gain;
 
+        if (params.bypassed) {
+            outL = dryL;
+            outR = dryR;
+        }
+
         // For visualizing crossfades:
         //outL = xfade;
         //outR = xfade;

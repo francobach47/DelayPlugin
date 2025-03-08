@@ -57,6 +57,8 @@ public:
 
     Measurement levelL, levelR;
 
+    juce::AudioProcessorParameter* getBypassParameter() const override;
+
 private:
     Tempo tempo;
 

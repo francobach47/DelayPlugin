@@ -33,6 +33,17 @@ DelayAudioProcessorEditor::DelayAudioProcessorEditor (DelayAudioProcessor& p)
 
     setLookAndFeel(&mainLF);
 
+    auto bypassIcon = juce::ImageCache::getFromMemory(BinaryData::Bypass_png, BinaryData::Bypass_pngSize);
+    bypassButton.setClickingTogglesState(true);
+    bypassButton.setBounds(0, 0, 20, 20);
+    bypassButton.setImages(
+        false, true, true,
+        bypassIcon, 1.0f, juce::Colours::white,
+        bypassIcon, 1.0f, juce::Colours::white,
+        bypassIcon, 1.0f, juce::Colours::grey,
+        0.0f);
+    addAndMakeVisible(bypassButton);
+
     setSize (500, 330);
 
     updateDelayKnobs(audioProcessor.params.tempoSyncParam->get());
@@ -97,6 +108,8 @@ void DelayAudioProcessorEditor::resized()
     highCutKnob.setTopLeftPosition(lowCutKnob.getRight() + 20, lowCutKnob.getY());
 
     meter.setBounds(outputGroup.getWidth() - 45, 30, 30, gainKnob.getBottom() - 30);
+
+    bypassButton.setTopLeftPosition(bounds.getRight() - bypassButton.getWidth() - 10, 10);
 }
 
 void DelayAudioProcessorEditor::parameterValueChanged(int, float value)
@@ -116,4 +129,9 @@ void DelayAudioProcessorEditor::updateDelayKnobs(bool tempoSyncActive)
 {
     delayTimeKnob.setVisible(!tempoSyncActive);
     delayNoteKnob.setVisible(tempoSyncActive);
+}
+
+juce::AudioProcessorParameter* DelayAudioProcessor::getBypassParameter() const
+{
+    return params.bypassParam;
 }

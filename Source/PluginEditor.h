@@ -46,5 +46,10 @@ private:
 
     LevelMeter meter;
 
+    juce::ImageButton bypassButton;
+    juce::AudioProcessorValueTreeState::ButtonAttachment bypassAttachment{
+        audioProcessor.apvts, bypassParamID.getParamID(), bypassButton
+    };
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DelayAudioProcessorEditor)
 };
