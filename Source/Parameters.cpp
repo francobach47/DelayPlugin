@@ -237,7 +237,7 @@ void Parameters::smoothen() noexcept
 {
 	gain = gainSmoother.getNextValue();
 
-	delayTime += (targetDelayTime - delayTime) * coeff;
+	delayTime = targetDelayTime;
 
 	mix = mixSmoother.getNextValue();
 

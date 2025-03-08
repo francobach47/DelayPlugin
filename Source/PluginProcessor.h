@@ -72,6 +72,11 @@ private:
     float lastLowCut = -1.0f;
     float lastHighCut = -1.0f;
 
+    float delayInSamples = 0.0f;
+    float targetDelay = 0.0f;
+    float xfade = 0.0f;
+    float xfadeInc = 0.0f;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DelayAudioProcessor)
 };
